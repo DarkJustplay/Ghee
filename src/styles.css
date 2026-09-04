@@ -1,0 +1,303 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-xs: calc(var(--radius) - 6px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 10px);
+  --radius-2xl: calc(var(--radius) + 18px);
+  --radius-3xl: calc(var(--radius) + 26px);
+  --radius-4xl: calc(var(--radius) + 36px);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Work Sans", system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brass: var(--brass);
+  --color-honey: var(--honey);
+  --color-sage: var(--sage);
+  --color-espresso: var(--espresso);
+  --color-parchment: var(--parchment);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.875rem;
+  --squircle-smooth: 0.72;
+
+  /* Brand */
+  --forest: oklch(0.318 0.043 133.5); /* #2E3B24 */
+  --parchment: oklch(0.945 0.028 92.5); /* #F4EFE0 */
+  --brass: oklch(0.664 0.072 74.5); /* #B8935A */
+  --espresso: oklch(0.286 0.031 55.6); /* #3A2A1E */
+  --honey: oklch(0.657 0.125 71.6); /* #C98A2C */
+  --sage: oklch(0.451 0.055 128.6); /* #5B6E45 */
+
+  --background: var(--parchment);
+  --foreground: var(--espresso);
+  --card: oklch(0.972 0.017 92.5);
+  --card-foreground: var(--espresso);
+  --popover: oklch(0.972 0.017 92.5);
+  --popover-foreground: var(--espresso);
+  --primary: var(--forest);
+  --primary-foreground: var(--parchment);
+  --secondary: var(--sage);
+  --secondary-foreground: oklch(0.97 0.02 92.5);
+  --muted: oklch(0.915 0.024 92);
+  --muted-foreground: oklch(0.47 0.028 70);
+  --accent: var(--brass);
+  --accent-foreground: var(--forest);
+  --destructive: oklch(0.52 0.17 28);
+  --destructive-foreground: oklch(0.97 0.02 92.5);
+  --border: color-mix(in oklab, var(--brass) 45%, transparent);
+  --input: color-mix(in oklab, var(--brass) 55%, transparent);
+  --ring: var(--brass);
+  --sidebar: var(--parchment);
+  --sidebar-foreground: var(--espresso);
+  --sidebar-primary: var(--forest);
+  --sidebar-primary-foreground: var(--parchment);
+  --sidebar-accent: var(--muted);
+  --sidebar-accent-foreground: var(--espresso);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--brass);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--forest);
+  }
+}
+
+/* Parchment paper grain */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+  }
+}
+
+/* Thin double-rule border echoing the label art with squircle curvature */
+@utility rule-double {
+  border-radius: var(--radius-2xl);
+  corner-shape: squircle;
+  border: 1px solid color-mix(in oklab, var(--brass) 70%, transparent);
+  outline: 1px solid color-mix(in oklab, var(--brass) 40%, transparent);
+  outline-offset: 5px;
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  color: color-mix(in oklab, var(--brass) 85%, black);
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.9s var(--ease-g3),
+    transform 0.9s var(--ease-g3);
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- G3 continuity: one easing curve, one rhythm, everywhere --- */
+@theme inline {
+  --ease-g3: cubic-bezier(0.32, 0, 0.12, 1);
+}
+
+/* --- Squircle G3 continuity: continuous curvature for all UI & UX corners --- */
+@supports (corner-shape: squircle) {
+  *,
+  *::before,
+  *::after {
+    corner-shape: squircle;
+  }
+}
+
+@utility squircle-xs {
+  border-radius: var(--radius-xs);
+  corner-shape: squircle;
+}
+
+@utility squircle-sm {
+  border-radius: var(--radius-sm);
+  corner-shape: squircle;
+}
+
+@utility squircle-md {
+  border-radius: var(--radius-md);
+  corner-shape: squircle;
+}
+
+@utility squircle-lg {
+  border-radius: var(--radius-lg);
+  corner-shape: squircle;
+}
+
+@utility squircle-xl {
+  border-radius: var(--radius-xl);
+  corner-shape: squircle;
+}
+
+@utility squircle-2xl {
+  border-radius: var(--radius-2xl);
+  corner-shape: squircle;
+}
+
+@utility squircle-3xl {
+  border-radius: var(--radius-3xl);
+  corner-shape: squircle;
+}
+
+@utility squircle-4xl {
+  border-radius: var(--radius-4xl);
+  corner-shape: squircle;
+}
+
+@utility squircle-full {
+  border-radius: 9999px;
+  corner-shape: squircle;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  [class*="rounded"],
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  .plate,
+  .rule-double,
+  article,
+  dialog {
+    corner-shape: squircle;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    border-radius: var(--radius-md);
+    corner-shape: squircle;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  summary {
+    transition:
+      color 320ms var(--ease-g3),
+      background-color 320ms var(--ease-g3),
+      border-color 320ms var(--ease-g3),
+      outline-color 320ms var(--ease-g3),
+      opacity 320ms var(--ease-g3),
+      transform 420ms var(--ease-g3);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 1px solid var(--brass);
+    outline-offset: 3px;
+  }
+
+  img {
+    transition: transform 700ms var(--ease-g3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 1ms !important;
+      animation-duration: 1ms !important;
+    }
+  }
+}
+
+/* Image frames share one hover behaviour across every page with squircle G3 corners */
+@utility plate {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  corner-shape: squircle;
+  border: 1px solid color-mix(in oklab, var(--brass) 50%, transparent);
+  & img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+  &:hover img {
+    transform: scale(1.03);
+  }
+}

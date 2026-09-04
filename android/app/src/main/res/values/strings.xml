@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Farmkala</string>
+    <!-- Use 10.0.2.2 for emulator, or your local IP (192.168.0.4) for physical devices -->
+    <string name="web_app_url">http://192.168.0.4:3000</string>
+</resources>
